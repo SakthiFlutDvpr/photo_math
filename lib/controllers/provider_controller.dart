@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class ProviderController extends ChangeNotifier {
+  ScrollController scrollController = ScrollController();
   // bottom navbar index
   int index = 0;
 
@@ -46,6 +47,7 @@ class ProviderController extends ChangeNotifier {
       default:
         parallelOutput += newInput;
         actualInput += newInput;
+        scrollToEnd();
     }
 
     notifyListeners();
@@ -56,6 +58,19 @@ class ProviderController extends ChangeNotifier {
     Expression expression = parser.parse(actualInput);
     ContextModel model = ContextModel();
     double result = expression.evaluate(EvaluationType.REAL, model);
-    actualOutput = result.toString();
+    if (result % 1 == 0) {
+      actualOutput = (result.toInt()).toString();
+    } else {
+      actualOutput = result.toString();
+    }
+  }
+
+  // scrolling the numbers
+
+  void scrollToEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+    });
   }
 }

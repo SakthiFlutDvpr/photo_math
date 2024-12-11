@@ -63,22 +63,37 @@ class GetTabCalculator extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        controller.actualOutput.value,
-                        style: GoogleFonts.workSans(
-                            fontSize: 40.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.primaryTextColor),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Text(
+                              controller.actualOutput.value,
+                              style: GoogleFonts.workSans(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.primaryTextColor),
+                            ),
+                          ],
+                        ),
                       ),
                       // SizedBox(
                       //   height: 10.h,
                       // ),
-                      Text(
-                        controller.parallelOutput.value,
-                        style: GoogleFonts.workSans(
-                            fontSize: 25.sp,
-                            fontWeight: FontWeight.w300,
-                            color: AppColors.tertiaryTextColor),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        controller: controller.scrollController,
+                        child: Row(
+                          children: [
+                            Text(
+                              controller.parallelOutput.value,
+                              style: GoogleFonts.workSans(
+                                  fontSize: 25.sp,
+                                  fontWeight: FontWeight.w300,
+                                  color: AppColors.tertiaryTextColor),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   );

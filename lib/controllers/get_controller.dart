@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class GetController extends GetxController {
+  ScrollController scrollController = ScrollController();
+
   // image uploading properties
 
   Rx<File> imgFile = File('').obs;
@@ -45,6 +48,7 @@ class GetController extends GetxController {
       default:
         parallelOutput.value += newInput;
         actualInput.value += newInput;
+        scrollToEnd();
     }
   }
 
@@ -53,6 +57,18 @@ class GetController extends GetxController {
     Expression expression = parser.parse(actualInput.value);
     ContextModel model = ContextModel();
     double result = expression.evaluate(EvaluationType.REAL, model);
-    actualOutput.value = result.toString();
+
+    if (result % 1 == 0) {
+      actualOutput.value = (result.toInt()).toString();
+    } else {
+      actualOutput.value = result.toString();
+    }
+  }
+
+  void scrollToEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+    });
   }
 }

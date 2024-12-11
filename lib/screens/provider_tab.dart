@@ -69,22 +69,39 @@ class ProviderTabCalculator extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        value.actualOutput,
-                        style: GoogleFonts.workSans(
-                            fontSize: 40.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.primaryTextColor),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Text(
+                              value.actualOutput,
+                              style: GoogleFonts.workSans(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.primaryTextColor),
+                            ),
+                          ],
+                        ),
                       ),
                       // SizedBox(
                       //   height: 10.h,
                       // ),
-                      Text(
-                        value.parallelOutput,
-                        style: GoogleFonts.workSans(
-                            fontSize: 25.sp,
-                            fontWeight: FontWeight.w300,
-                            color: AppColors.tertiaryTextColor),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        controller: value.scrollController,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              value.parallelOutput,
+                              style: GoogleFonts.workSans(
+                                  fontSize: 25.sp,
+                                  fontWeight: FontWeight.w300,
+                                  color: AppColors.tertiaryTextColor),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   );
